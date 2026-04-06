@@ -35,12 +35,19 @@
   --ease: cubic-bezier(.16,1,.3,1);
   --tr: .3s var(--ease);
   --tf: .15s var(--ease);
-  --sidebar-w: 256px;
+  /* ── Layout ── */
+  --sidebar-w: 260px;
+  --sidebar-collapsed: 64px;
   --topbar-h: 52px;
+  /* ── Tipografia corporativa ── */
+  --font-base: 16px;
+  --font-sm: 14px;
+  --font-xs: 12.5px;
+  --font-xxs: 11.5px;
 }
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
-body { font-family:'Nunito Sans',-apple-system,sans-serif; background:var(--bg-base); color:var(--text-primary); line-height:1.6; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+body { font-family:'Nunito Sans',-apple-system,sans-serif; background:var(--bg-base); color:var(--text-primary); line-height:1.65; overflow-x:hidden; -webkit-font-smoothing:antialiased; font-size:var(--font-base); }
 ::selection { background:rgba(9,242,137,.2); color:#fff; }
 ::-webkit-scrollbar { width:4px; height:4px; }
 ::-webkit-scrollbar-track { background:transparent; }
@@ -128,13 +135,28 @@ input,select,textarea { font-family:inherit; }
 .login-divider { font-size:10px; color:var(--text-dim); text-transform:uppercase; letter-spacing:2px; margin:16px 0 10px; text-align:center; }
 .login-form { text-align:left; }
 
-/* ══ SIDEBAR ══ */
-.sidebar { position:fixed; top:0; left:0; width:var(--sidebar-w); height:100vh; background:rgba(1,3,44,.97); border-right:1px solid var(--border); display:flex; flex-direction:column; z-index:200; transition:transform var(--tr),width var(--tr); backdrop-filter:blur(20px); }
-.sidebar.collapsed { width:64px; }
+/* ══ SIDEBAR — SOLUÇÃO DEFINITIVA ══ */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: rgba(1,3,44,.97);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+  transition: width .3s ease;
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+.sidebar.collapsed { width: var(--sidebar-collapsed); }
+
 .sidebar-header { padding:16px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; min-height:60px; overflow:hidden; }
 .logo-icon { width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg,var(--accent2),var(--secondary)); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px; }
 .logo-text { overflow:hidden; transition:opacity var(--tf),width var(--tf); }
-.logo-text .brand { font-weight:800; font-size:13px; white-space:nowrap; }
+.logo-text .brand { font-weight:800; font-size:14px; white-space:nowrap; }
 .logo-text .sub { font-size:9px; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); font-weight:600; }
 .sidebar.collapsed .logo-text { opacity:0; width:0; }
 .sidebar-collapse-btn { margin-left:auto; flex-shrink:0; width:24px; height:24px; background:var(--grey-faint); border:1px solid var(--border); border-radius:6px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--text-dim); transition:all var(--tf); }
@@ -145,23 +167,23 @@ input,select,textarea { font-family:inherit; }
 .user-card:hover { border-color:var(--border-hover); }
 .user-avatar { width:26px; height:26px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; flex-shrink:0; color:#fff; }
 .user-card-info { overflow:hidden; transition:opacity var(--tf); }
-.user-card-name { font-size:11.5px; font-weight:700; white-space:nowrap; }
-.user-card-role { font-size:9.5px; color:var(--text-dim); }
+.user-card-name { font-size:12px; font-weight:700; white-space:nowrap; }
+.user-card-role { font-size:10px; color:var(--text-dim); }
 .sidebar.collapsed .user-card-info { opacity:0; width:0; }
 .sidebar-nav { flex:1; overflow-y:auto; overflow-x:hidden; padding:4px 6px; }
 .nav-group { margin-bottom:4px; }
 .nav-group-header { display:flex; align-items:center; justify-content:space-between; padding:12px 10px 4px; cursor:pointer; }
-.nav-label { font-size:8.5px; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); font-weight:700; white-space:nowrap; overflow:hidden; transition:opacity var(--tf); }
+.nav-label { font-size:9px; text-transform:uppercase; letter-spacing:2px; color:var(--text-dim); font-weight:700; white-space:nowrap; overflow:hidden; transition:opacity var(--tf); }
 .sidebar.collapsed .nav-label { opacity:0; }
 .nav-group-chevron { width:12px; height:12px; color:var(--text-dim); transition:transform var(--tr); flex-shrink:0; }
 .nav-group.collapsed .nav-group-chevron { transform:rotate(-90deg); }
 .sidebar.collapsed .nav-group-chevron { display:none; }
 .nav-group-items { overflow:hidden; transition:max-height var(--tr); }
 .nav-group.collapsed .nav-group-items { max-height:0 !important; }
-.nav-item { display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:var(--radius-sm); color:var(--text-secondary); font-size:12px; font-weight:500; cursor:pointer; transition:all var(--tf); border:1px solid transparent; background:none; width:100%; text-align:left; position:relative; white-space:nowrap; overflow:hidden; }
+.nav-item { display:flex; align-items:center; gap:8px; padding:10px 12px; border-radius:var(--radius-sm); color:var(--text-secondary); font-size:13.5px; font-weight:500; cursor:pointer; transition:all var(--tf); border:1px solid transparent; background:none; width:100%; text-align:left; position:relative; white-space:nowrap; overflow:hidden; }
 .nav-item:hover { background:var(--grey-faint); color:var(--text-primary); border-color:var(--border); }
 .nav-item.active { background:rgba(9,242,137,.07); color:var(--secondary); border-color:rgba(9,242,137,.14); }
-.nav-emoji { font-size:14px; flex-shrink:0; line-height:1; width:18px; text-align:center; }
+.nav-emoji { font-size:15px; flex-shrink:0; line-height:1; width:20px; text-align:center; }
 .nav-item-label { overflow:hidden; transition:opacity var(--tf),max-width var(--tr); max-width:200px; }
 .sidebar.collapsed .nav-item-label { opacity:0; max-width:0; }
 .nav-badge { margin-left:auto; background:var(--red); color:#fff; font-size:8px; font-weight:800; min-width:16px; height:16px; border-radius:8px; display:flex; align-items:center; justify-content:center; padding:0 4px; flex-shrink:0; }
@@ -169,33 +191,47 @@ input,select,textarea { font-family:inherit; }
 .sidebar-foot { padding:10px 12px; border-top:1px solid var(--border); overflow:hidden; }
 .sidebar-foot-text { font-size:9px; color:var(--text-dim); text-align:center; white-space:nowrap; transition:opacity var(--tf); }
 .sidebar.collapsed .sidebar-foot-text { opacity:0; }
-.logout-btn { display:flex; align-items:center; gap:6px; padding:7px 10px; border-radius:var(--radius-sm); color:var(--text-dim); font-size:11px; font-weight:500; cursor:pointer; transition:all var(--tf); border:1px solid transparent; background:none; width:100%; margin-bottom:6px; white-space:nowrap; overflow:hidden; }
+.logout-btn { display:flex; align-items:center; gap:6px; padding:9px 10px; border-radius:var(--radius-sm); color:var(--text-dim); font-size:12px; font-weight:500; cursor:pointer; transition:all var(--tf); border:1px solid transparent; background:none; width:100%; margin-bottom:6px; white-space:nowrap; overflow:hidden; }
 .logout-btn:hover { color:var(--red); border-color:rgba(239,68,68,.2); background:rgba(239,68,68,.04); }
 .sidebar.collapsed .logout-btn span { display:none; }
 
-/* ══ MAIN ══ */
-.main { margin-left:var(--sidebar-w); min-height:100vh; transition:margin-left var(--tr); }
-.main.expanded { margin-left:64px; }
+/* ══ MAIN — SOLUÇÃO DEFINITIVA ══ */
+.main {
+  margin-left: var(--sidebar-w);
+  width: calc(100% - var(--sidebar-w));
+  min-height: 100vh;
+  transition: margin-left .3s ease, width .3s ease;
+  box-sizing: border-box;
+}
+
+/* Estado colapsado — sincronizado com sidebar */
+.sidebar.collapsed ~ .main,
+.main.expanded {
+  margin-left: var(--sidebar-collapsed);
+  width: calc(100% - var(--sidebar-collapsed));
+}
 
 /* ══ TOPBAR ══ */
-.topbar { position:sticky; top:0; z-index:100; background:rgba(1,2,59,.8); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); padding:0 20px; height:var(--topbar-h); display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.search-wrap { position:relative; width:280px; flex-shrink:1; }
-.search-wrap svg { position:absolute; left:10px; top:50%; transform:translateY(-50%); width:13px; height:13px; color:var(--text-dim); pointer-events:none; }
-.search-wrap input { width:100%; padding:7px 12px 7px 30px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:12px; background:var(--grey-faint); color:var(--text-primary); transition:border-color var(--tf); }
+.topbar { position:sticky; top:0; z-index:100; background:rgba(1,2,59,.85); backdrop-filter:blur(24px); border-bottom:1px solid var(--border); padding:0 24px; height:var(--topbar-h); display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.search-wrap { position:relative; width:300px; flex-shrink:1; }
+.search-wrap svg { position:absolute; left:10px; top:50%; transform:translateY(-50%); width:14px; height:14px; color:var(--text-dim); pointer-events:none; }
+.search-wrap input { width:100%; padding:8px 12px 8px 32px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:13px; background:var(--grey-faint); color:var(--text-primary); transition:border-color var(--tf); }
 .search-wrap input:focus { outline:none; border-color:rgba(9,242,137,.3); }
 .search-wrap input::placeholder { color:var(--text-dim); }
-.topbar-right { display:flex; align-items:center; gap:6px; flex-shrink:0; }
-.topbar-date { font-size:10px; color:var(--text-dim); white-space:nowrap; }
-.tb-btn { background:var(--grey-faint); border:1px solid var(--border); border-radius:var(--radius-xs); width:30px; height:30px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--text-dim); transition:all var(--tf); position:relative; }
+.topbar-right { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.topbar-date { font-size:12px; color:var(--text-dim); white-space:nowrap; }
+.tb-btn { background:var(--grey-faint); border:1px solid var(--border); border-radius:var(--radius-xs); width:32px; height:32px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--text-dim); transition:all var(--tf); position:relative; }
 .tb-btn:hover { border-color:var(--border-hover); color:var(--text-primary); }
-.tb-btn svg { width:13px; height:13px; }
-.avatar { width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:11px; font-weight:800; cursor:pointer; }
+.tb-btn svg { width:14px; height:14px; }
+.avatar { width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:800; cursor:pointer; }
 .hamburger { display:none; background:none; border:none; cursor:pointer; color:var(--text-secondary); padding:4px; }
-.sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(1,2,37,.7); backdrop-filter:blur(4px); z-index:150; }
+
+/* Overlay — abaixo da sidebar, acima do conteúdo */
+.sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(1,2,37,.7); backdrop-filter:blur(4px); z-index:190; }
 .sidebar-overlay.show { display:block; }
 
 /* ══ CONTENT ══ */
-.content { padding:20px 24px 60px; max-width:1100px; }
+.content { padding:24px 28px 60px; max-width:1140px; }
 .view-section { display:none; animation:fadeIn .35s var(--ease); }
 .view-section.active { display:block; }
 @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
@@ -452,13 +488,6 @@ input,select,textarea { font-family:inherit; }
 .profile-photo-btn { position:absolute; bottom:-5px; right:-5px; width:24px; height:24px; border-radius:7px; background:var(--secondary); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:11px; border:2px solid var(--bg-base); cursor:pointer; overflow:hidden; }
 .profile-photo-btn input { position:absolute; inset:0; opacity:0; cursor:pointer; }
 
-/* ══ SIDEBAR OCULTA ══ */
-.sidebar-hidden .sidebar { transform:translateX(-270px) !important; }
-.sidebar-hidden .main { margin-left:0 !important; }
-.sidebar-reveal-btn { position:fixed; top:12px; left:12px; z-index:500; width:34px; height:34px; background:var(--bg-card); border:1px solid var(--border-hover); border-radius:10px; display:none; align-items:center; justify-content:center; cursor:pointer; color:var(--text-secondary); font-size:16px; transition:all var(--tf); backdrop-filter:blur(10px); box-shadow:0 4px 16px rgba(0,0,0,.3); }
-.sidebar-hidden .sidebar-reveal-btn { display:flex; }
-.sidebar-reveal-btn:hover { color:var(--secondary); border-color:rgba(9,242,137,.3); }
-
 /* ══ MURAL RICO ══ */
 .mural-card { background:var(--bg-card); border:1px solid var(--border); border-left:3px solid var(--secondary); border-radius:var(--radius); padding:18px 20px; margin-bottom:9px; transition:border-color var(--tf); }
 .mural-card:hover { border-color:var(--secondary); }
@@ -485,6 +514,109 @@ input,select,textarea { font-family:inherit; }
 .loader-ring { width:32px; height:32px; border:2px solid var(--border); border-top-color:var(--secondary); border-radius:50%; animation:spin .7s linear infinite; }
 @keyframes spin { to { transform:rotate(360deg); } }
 
+/* ══ FEED INTERATIVO ══ */
+.feed-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px; margin-bottom:10px; transition:all var(--tf); }
+.feed-card:hover { border-color:var(--border-hover); }
+.feed-type-badge { display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:800; padding:3px 9px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; letter-spacing:.5px; }
+.feed-type-aviso    { background:rgba(239,68,68,.1); color:var(--red); border:1px solid rgba(239,68,68,.2); }
+.feed-type-update   { background:rgba(9,242,137,.08); color:var(--secondary); border:1px solid rgba(9,242,137,.18); }
+.feed-type-reconhec { background:rgba(255,184,0,.1); color:var(--accent3); border:1px solid rgba(255,184,0,.2); }
+.feed-type-info     { background:var(--grey-faint); color:var(--text-dim); border:1px solid var(--border); }
+.feed-title { font-size:16px; font-weight:800; margin-bottom:8px; line-height:1.3; }
+.feed-body  { font-size:14px; color:var(--text-secondary); line-height:1.75; }
+.feed-actions { display:flex; align-items:center; gap:6px; margin-top:14px; padding-top:12px; border-top:1px solid var(--border); flex-wrap:wrap; }
+.feed-action-btn { display:flex; align-items:center; gap:5px; padding:5px 12px; border-radius:20px; border:1px solid var(--border); background:var(--grey-faint); color:var(--text-secondary); font-size:12px; font-weight:600; cursor:pointer; transition:all var(--tf); font-family:inherit; }
+.feed-action-btn:hover { border-color:var(--border-hover); color:var(--text-primary); }
+.feed-action-btn.liked { background:rgba(9,242,137,.08); border-color:rgba(9,242,137,.2); color:var(--secondary); }
+.feed-action-btn.read-done { background:rgba(9,242,137,.08); border-color:rgba(9,242,137,.2); color:var(--secondary); pointer-events:none; }
+.feed-comments { margin-top:12px; }
+.feed-comment { display:flex; gap:8px; padding:8px 0; border-top:1px solid var(--border); }
+.feed-comment-avatar { width:26px; height:26px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; color:#fff; flex-shrink:0; }
+.feed-comment-body { flex:1; }
+.feed-comment-name { font-size:12px; font-weight:700; }
+.feed-comment-text { font-size:13px; color:var(--text-secondary); line-height:1.5; margin-top:1px; }
+.feed-comment-time { font-size:10px; color:var(--text-dim); }
+.feed-comment-input-wrap { display:flex; gap:8px; margin-top:10px; align-items:center; }
+.feed-comment-input-wrap input { flex:1; padding:7px 12px; border:1px solid var(--border); border-radius:20px; font-size:13px; background:var(--grey-faint); color:var(--text-primary); font-family:inherit; }
+.feed-comment-input-wrap input:focus { outline:none; border-color:rgba(9,242,137,.3); }
+.feed-filter-bar { display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap; }
+.feed-filter-btn { padding:5px 14px; border-radius:20px; border:1px solid var(--border); background:var(--grey-faint); color:var(--text-secondary); font-size:12px; font-weight:600; cursor:pointer; font-family:inherit; transition:all var(--tf); }
+.feed-filter-btn:hover { border-color:var(--border-hover); color:var(--text-primary); }
+.feed-filter-btn.active { background:rgba(9,242,137,.08); border-color:rgba(9,242,137,.2); color:var(--secondary); }
+.feed-notif-dot { width:8px; height:8px; border-radius:50%; background:var(--red); flex-shrink:0; }
+
+/* ══ PERFORMANCE / SCORE PIPER ══ */
+.score-card { background:linear-gradient(135deg,rgba(10,14,82,.8),rgba(15,25,100,.8)); border:1px solid rgba(9,242,137,.2); border-radius:var(--radius); padding:22px 24px; margin-bottom:14px; position:relative; overflow:hidden; }
+.score-card::before { content:''; position:absolute; top:-40px; right:-40px; width:150px; height:150px; border-radius:50%; background:rgba(9,242,137,.05); }
+.score-value { font-size:48px; font-weight:900; color:var(--secondary); line-height:1; font-family:'Space Grotesk',sans-serif; }
+.score-label { font-size:12px; color:var(--text-dim); margin-top:4px; font-weight:600; text-transform:uppercase; letter-spacing:1px; }
+.score-max { font-size:20px; color:var(--text-dim); font-weight:400; }
+.score-bar-wrap { margin-top:14px; }
+.score-bar-track { height:10px; background:rgba(9,242,137,.1); border-radius:5px; overflow:hidden; }
+.score-bar-fill { height:100%; border-radius:5px; background:linear-gradient(90deg,var(--secondary),var(--accent2)); transition:width 1s var(--ease); }
+.score-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:14px; }
+.score-item { background:var(--grey-faint); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 12px; text-align:center; }
+.score-item-value { font-size:20px; font-weight:900; color:var(--text-primary); font-family:'Space Grotesk',sans-serif; }
+.score-item-label { font-size:10px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.5px; font-weight:700; margin-top:2px; }
+.score-item-icon { font-size:16px; margin-bottom:4px; }
+
+/* ══ FAQ INTELIGENTE ══ */
+.faq-search-wrap { position:relative; margin-bottom:14px; }
+.faq-search-wrap input { width:100%; padding:10px 14px 10px 38px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:14px; background:var(--grey-faint); color:var(--text-primary); font-family:inherit; }
+.faq-search-wrap input:focus { outline:none; border-color:rgba(9,242,137,.35); }
+.faq-search-wrap svg { position:absolute; left:12px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--text-dim); pointer-events:none; }
+.faq-q { padding:14px 18px; cursor:pointer; font-size:14px; font-weight:600; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.faq-a { padding:0 18px 14px; font-size:14px; color:var(--text-secondary); line-height:1.75; display:none; }
+.faq-a.open { display:block; }
+.faq-helpful { display:flex; align-items:center; gap:8px; margin-top:12px; padding-top:10px; border-top:1px solid var(--border); font-size:12px; color:var(--text-dim); }
+.faq-helpful-btn { padding:4px 12px; border-radius:20px; border:1px solid var(--border); background:var(--grey-faint); color:var(--text-secondary); font-size:12px; cursor:pointer; font-family:inherit; transition:all var(--tf); }
+.faq-helpful-btn:hover { border-color:var(--border-hover); color:var(--text-primary); }
+.faq-helpful-btn.yes { background:rgba(9,242,137,.08); border-color:rgba(9,242,137,.2); color:var(--secondary); }
+.faq-helpful-btn.no  { background:rgba(239,68,68,.06); border-color:rgba(239,68,68,.18); color:var(--red); }
+.faq-popular-badge { font-size:9px; padding:2px 7px; border-radius:20px; background:rgba(255,184,0,.1); color:var(--accent3); border:1px solid rgba(255,184,0,.2); font-weight:800; margin-left:6px; }
+
+/* ══ TYPOGRAPHY UPGRADE ══ */
+.nav-item { font-size:13px; }
+.nav-label { font-size:10px; }
+.card-info h4 { font-size:14px; }
+.card-info p { font-size:13px; }
+.stat-label { font-size:10.5px; }
+.admin-section h3 { font-size:14.5px; }
+.form-group label { font-size:11px; }
+.form-input,.form-select,.form-textarea { font-size:14px; padding:9px 12px; }
+.btn { font-size:13px; padding:8px 18px; }
+.btn-sm { font-size:12px; padding:5px 12px; }
+.tag { font-size:9.5px; }
+.module-tab { font-size:13px; padding:8px 16px; }
+.admin-tab { font-size:12.5px; }
+.admin-list-item { font-size:13px; }
+.lesson-title { font-size:13.5px; }
+.lesson-meta { font-size:11.5px; }
+.breadcrumb-item { font-size:12px; }
+.topbar-date { font-size:11.5px; }
+
+/* ══ WHATSAPP NOTIFICATIONS ══ */
+.wa-preview { background:#075E54; border-radius:var(--radius); padding:16px; margin-top:10px; font-family:'Segoe UI',sans-serif; }
+.wa-preview-header { display:flex; align-items:center; gap:8px; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,.15); margin-bottom:10px; }
+.wa-preview-avatar { width:36px; height:36px; border-radius:50%; background:#128C7E; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.wa-preview-name { font-size:13px; font-weight:700; color:#fff; }
+.wa-preview-status { font-size:10px; color:rgba(255,255,255,.6); }
+.wa-bubble { background:#DCF8C6; color:#111; border-radius:10px 10px 0 10px; padding:10px 14px; font-size:13px; line-height:1.5; max-width:85%; margin-left:auto; position:relative; box-shadow:0 1px 2px rgba(0,0,0,.2); }
+.wa-bubble-time { font-size:10px; color:rgba(0,0,0,.45); text-align:right; margin-top:4px; }
+.wa-send-btn { display:inline-flex; align-items:center; gap:6px; padding:7px 16px; background:#25D366; color:#fff; border:none; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; transition:all var(--tf); margin-top:8px; }
+.wa-send-btn:hover { background:#1ebe5d; }
+.wa-send-btn:disabled { opacity:.5; cursor:not-allowed; }
+.wa-notif-toggle { display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--grey-faint); border:1px solid var(--border); border-radius:var(--radius-sm); cursor:pointer; transition:all var(--tf); }
+.wa-notif-toggle:hover { border-color:var(--border-hover); }
+.wa-notif-toggle.enabled { background:rgba(37,211,102,.06); border-color:rgba(37,211,102,.2); }
+.wa-toggle-switch { width:36px; height:20px; border-radius:10px; background:var(--border-hover); position:relative; flex-shrink:0; transition:background var(--tf); }
+.wa-toggle-switch::after { content:''; position:absolute; width:14px; height:14px; border-radius:50%; background:#fff; top:3px; left:3px; transition:transform var(--tf); }
+.wa-notif-toggle.enabled .wa-toggle-switch { background:#25D366; }
+.wa-notif-toggle.enabled .wa-toggle-switch::after { transform:translateX(16px); }
+.wa-status-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.wa-status-dot.ok { background:#25D366; }
+.wa-status-dot.off { background:var(--border-hover); }
+
 /* ══ LIGHT THEME ══ */
 [data-theme="light"] { --primary:#F4F7FB; --bg-base:#FFFFFF; --bg-card:rgba(244,247,251,.9); --bg-card-hover:rgba(235,240,248,.95); --text-primary:#0F172A; --text-secondary:#475569; --text-dim:#94A3B8; --grey-faint:rgba(10,22,40,.04); --border:rgba(10,22,40,.09); --border-hover:rgba(10,22,40,.16); --secondary:#05A85F; --accent:#E03500; }
 [data-theme="light"] .sidebar { background:rgba(244,247,251,.97); }
@@ -501,19 +633,66 @@ input,select,textarea { font-family:inherit; }
 [data-theme="light"] .tb-btn.theme .i-moon { display:none; }
 
 /* ══ RESPONSIVE ══ */
-@media(max-width:768px) {
-  .sidebar { transform:translateX(-100%); width:var(--sidebar-w) !important; }
-  .sidebar.mobile-open { transform:translateX(0); }
+/* ══ SIDEBAR HIDDEN (permissão de ocultar) ══ */
+.sidebar-hidden .sidebar { transform:translateX(calc(-1 * var(--sidebar-w))); }
+.sidebar-hidden .main { margin-left:0 !important; width:100% !important; }
+.sidebar-reveal-btn { position:fixed; top:12px; left:12px; z-index:500; width:34px; height:34px; background:var(--bg-card); border:1px solid var(--border-hover); border-radius:10px; display:none; align-items:center; justify-content:middle; cursor:pointer; color:var(--text-secondary); font-size:16px; transition:all var(--tf); backdrop-filter:blur(10px); box-shadow:0 4px 16px rgba(0,0,0,.3); }
+.sidebar-hidden .sidebar-reveal-btn { display:flex; }
+.sidebar-reveal-btn:hover { color:var(--secondary); border-color:rgba(9,242,137,.3); }
+
+/* ══ TIPOGRAFIA — HEADINGS ══ */
+h1 { font-size:22px; font-weight:800; line-height:1.25; }
+h2 { font-size:18px; font-weight:700; line-height:1.3; }
+h3 { font-size:16px; font-weight:700; line-height:1.3; }
+.card-info h4 { font-size:15px; font-weight:700; }
+.card-info p { font-size:13px; }
+.feed-title { font-size:17px; font-weight:800; }
+.feed-body { font-size:14px; line-height:1.75; }
+.feed-author { font-size:13px; font-weight:700; }
+.feed-time { font-size:11px; }
+.faq-q { font-size:15px; font-weight:600; }
+.faq-a { font-size:14px; line-height:1.8; }
+
+/* ══ MOBILE DRAWER — SOLUÇÃO DEFINITIVA ══ */
+@media (max-width: 768px) {
+  /* Sidebar vira drawer: sai da tela para a esquerda */
+  .sidebar {
+    transform: translateX(-100%);
+    z-index: 999;
+    transition: transform .3s ease;
+    width: var(--sidebar-w) !important;
+  }
+  /* Classe .show controla abertura no mobile */
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
   .sidebar-collapse-btn { display:none; }
-  .main { margin-left:0 !important; }
+  /* Main ocupa 100% no mobile — sem sidebar empurrando */
+  .main {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
   .topbar { padding:0 12px; }
-  .search-wrap { width:180px; }
-  .content { padding:14px 12px 50px; }
-  .hero { padding:24px 18px 20px; min-height:170px; }
-  .hamburger { display:block; }
-  .modules { grid-template-columns:1fr 1fr; gap:7px; }
+  .search-wrap { width:160px; }
+  .content { padding:16px 14px 60px; }
+  .hero { padding:24px 18px 20px; min-height:160px; }
+  .hamburger { display:block !important; }
+  .modules { grid-template-columns:1fr 1fr; gap:8px; }
+  .perm-grid { grid-template-columns:1fr; }
+  .score-grid { grid-template-columns:1fr 1fr 1fr; }
+  .admin-tabs { gap:2px; overflow-x:auto; flex-wrap:nowrap; padding-bottom:4px; }
+  .admin-tab { padding:6px 10px; font-size:11px; white-space:nowrap; flex-shrink:0; }
+  h1 { font-size:18px; }
+  h2 { font-size:16px; }
 }
-@media(max-width:480px) { .modules { grid-template-columns:1fr; } .stat-grid { grid-template-columns:1fr 1fr; } }
+
+@media (max-width: 480px) {
+  .modules { grid-template-columns:1fr; }
+  .stat-grid { grid-template-columns:1fr 1fr; }
+  .score-grid { grid-template-columns:1fr 1fr; }
+  .search-wrap { width:110px; }
+  h1 { font-size:16px; }
+}
 </style>
 </head>
 <body>
@@ -719,7 +898,181 @@ const DB = {
   getUserPassword(userId) { return this.get('upass_'+userId, null); },
   setUserPassword(userId, v) { this.set('upass_'+userId, v); },
   delUserPassword(userId) { this.del('upass_'+userId); },
+  // WhatsApp config
+  getWAConfig() { return this.get('waconfig', { enabled: false, apiKey: '', fromNumber: '', mode: 'link' }); },
+  setWAConfig(v) { this.set('waconfig', v); },
+  getWALog() { return this.get('walog', []); },
+  addWALog(entry) {
+    const log = this.getWALog();
+    log.unshift({ ...entry, ts: new Date().toLocaleString('pt-BR') });
+    if (log.length > 50) log.splice(50);
+    this.set('walog', log);
+  },
+  // Interações de comunicado (likes, comentários)
+  getCommInteractions(commId) { return this.get('ci_'+commId, { likes:[], comments:[] }); },
+  setCommInteractions(commId, v) { this.set('ci_'+commId, v); },
+  // FAQ — avaliações de utilidade
+  getFaqHelpful() { return this.get('faqhelpful', {}); },
+  setFaqHelpful(v) { this.set('faqhelpful', v); },
+  getFaqViews() { return this.get('faqviews', {}); },
+  setFaqViews(v) { this.set('faqviews', v); },
+  // Performance — score do colaborador
+  getUserScore(userId) {
+    // Score calculado dinamicamente: aulas + engajamento + comunicados lidos
+    const pts = this.get('points_'+userId, 0);
+    return Math.min(100, Math.round(pts / 5)); // cada 5 pts = 1 ponto no score (max 100)
+  },
 };
+
+// ══════════════════════════
+//  WHATSAPP — SISTEMA DE NOTIFICAÇÕES
+// ══════════════════════════
+
+// Formata número brasileiro para formato internacional
+function formatWANumber(num) {
+  if (!num) return '';
+  const digits = num.replace(/\D/g, '');
+  // Adiciona código do Brasil se não tiver
+  if (digits.length === 11) return '55' + digits;
+  if (digits.length === 13 && digits.startsWith('55')) return digits;
+  if (digits.length === 10) return '55' + digits;
+  return digits;
+}
+
+// Monta URL wa.me com mensagem codificada
+function buildWALink(phone, message) {
+  const num = formatWANumber(phone);
+  if (!num) return null;
+  return `https://wa.me/${num}?text=${encodeURIComponent(message)}`;
+}
+
+// Template de mensagem por tipo de gatilho
+function buildWAMessage(type, data) {
+  const id = DB.getIdentity();
+  const portal = id.name || 'Portal Piper Protege';
+  const url = window.location.href.split('?')[0];
+
+  const templates = {
+    comunicado: (d) =>
+      `📢 *${portal}*\n\nOlá, *${d.userName}*! 👋\n\nVocê tem um novo comunicado:\n\n*${d.title}*\n${d.body ? d.body.slice(0, 120) + (d.body.length > 120 ? '…' : '') : ''}\n\n🔗 Acesse o portal para confirmar a leitura:\n${url}`,
+
+    nova_aula: (d) =>
+      `🎓 *${portal}*\n\nOlá, *${d.userName}*! 📚\n\nNova aula disponível na sua trilha:\n\n*${d.trackName}* — ${d.levelName}\n📖 "${d.lessonTitle}"\n\n▶️ Acesse agora:\n${url}`,
+
+    conquista: (d) =>
+      `🏅 *${portal}*\n\nParabéns, *${d.userName}*! 🎉\n\nVocê desbloqueou uma nova conquista:\n\n*${d.icon} ${d.title}*\n${d.desc}\n+${d.points} pontos!\n\n🔗 Veja seu progresso:\n${url}`,
+
+    pendencia: (d) =>
+      `⏳ *${portal}*\n\nOlá, *${d.userName}*! 👋\n\nVocê tem *${d.count} comunicado(s)* aguardando confirmação de leitura.\n\n✅ Acesse o portal e confirme:\n${url}`,
+
+    nivel_completo: (d) =>
+      `✨ *${portal}*\n\nIncrível, *${d.userName}*! 🚀\n\nVocê concluiu o nível *${d.levelName}* na trilha *${d.trackName}*!\n\n${d.badge ? '🏆 Badge conquistado: ' + d.badge + '\n' : ''}Continue assim!\n${url}`,
+
+    boas_vindas: (d) =>
+      `👋 *${portal}*\n\nBem-vindo(a), *${d.userName}*!\n\nSeu acesso ao portal está pronto. Acesse agora e comece sua jornada de desenvolvimento:\n\n🔗 ${url}\n\nQualquer dúvida, fale com seu gestor. 💪`,
+  };
+
+  const fn = templates[type];
+  return fn ? fn(data) : null;
+}
+
+// Envia notificação WhatsApp para um usuário
+// Modos: 'link' (abre wa.me), 'api' (envia via API HTTP - requer chave)
+async function sendWANotification(user, type, data) {
+  const cfg = DB.getWAConfig();
+  if (!cfg.enabled) return;
+
+  const phone = user.whatsapp || user.phone || '';
+  if (!phone) return; // sem número cadastrado
+
+  const message = buildWAMessage(type, { userName: user.name.split(' ')[0], ...data });
+  if (!message) return;
+
+  const logEntry = { to: user.name, phone, type, status: 'pending' };
+
+  if (cfg.mode === 'api' && cfg.apiKey) {
+    // Modo API: envia automaticamente via CallMeBot ou similar
+    try {
+      const num = formatWANumber(phone);
+      // CallMeBot API (gratuita para testes) — trocar por Twilio/Wati em produção
+      const apiUrl = `https://api.callmebot.com/whatsapp.php?phone=${num}&text=${encodeURIComponent(message)}&apikey=${cfg.apiKey}`;
+      const resp = await fetch(apiUrl, { mode: 'no-cors' });
+      logEntry.status = 'sent';
+      logEntry.mode = 'api';
+    } catch (e) {
+      logEntry.status = 'error';
+      logEntry.error = e.message;
+    }
+  } else {
+    // Modo link: abre wa.me (admin clica manualmente)
+    logEntry.status = 'link_ready';
+    logEntry.link = buildWALink(phone, message);
+    logEntry.mode = 'link';
+  }
+
+  DB.addWALog(logEntry);
+  return logEntry;
+}
+
+// Envia para todos os usuários de um departamento (ou todos)
+async function sendWABroadcast(type, data, targetDept = 'Todos') {
+  const cfg = DB.getWAConfig();
+  if (!cfg.enabled) return 0;
+  const users = DB.getUsers().filter(u => {
+    if (!u.whatsapp) return false;
+    return targetDept === 'Todos' || u.dept === targetDept;
+  });
+  let count = 0;
+  for (const u of users) {
+    await sendWANotification(u, type, data);
+    count++;
+  }
+  return count;
+}
+
+// Abre painel de links para envio manual
+function showWALinksPanel(type, data, targetDept = 'Todos') {
+  const users = DB.getUsers().filter(u => {
+    if (!u.whatsapp) return false;
+    return targetDept === 'Todos' || u.dept === targetDept;
+  });
+
+  if (!users.length) {
+    showPopup(`<h3>📲 WhatsApp</h3>
+      <div style="padding:16px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:var(--radius-sm);font-size:13px;color:var(--red)">
+        ⚠️ Nenhum usuário com WhatsApp cadastrado no departamento selecionado.<br><br>
+        Cadastre o número WhatsApp dos colaboradores em <strong>Configurações → Usuários → Editar</strong>.
+      </div>
+      <button class="btn btn-outline" onclick="closePopup()" style="margin-top:14px">Fechar</button>`);
+    return;
+  }
+
+  const links = users.map(u => {
+    const msg = buildWAMessage(type, { userName: u.name.split(' ')[0], ...data });
+    const url = buildWALink(u.whatsapp, msg);
+    return { u, url, msg };
+  });
+
+  const linksHtml = links.map(({ u, url }) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--grey-faint);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:6px">
+      <div style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;background:${getAvatarColor(u.name)};flex-shrink:0">
+        ${u.photo ? `<img src="${u.photo}" style="width:32px;height:32px;object-fit:cover;border-radius:8px;">` : u.name[0].toUpperCase()}
+      </div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700">${u.name}</div>
+        <div style="font-size:11px;color:var(--text-dim)">${u.whatsapp}</div>
+      </div>
+      ${url ? `<a href="${url}" target="_blank" class="wa-send-btn">📲 Enviar</a>` : `<span style="font-size:11px;color:var(--red)">Sem número</span>`}
+    </div>`).join('');
+
+  showPopup(`<h3>📲 Enviar via WhatsApp</h3>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px">Clique em <strong>Enviar</strong> para abrir o WhatsApp Web com a mensagem pronta para cada colaborador.</p>
+    <div style="max-height:300px;overflow-y:auto">${linksHtml}</div>
+    <div style="margin-top:14px;padding:10px;background:rgba(37,211,102,.06);border:1px solid rgba(37,211,102,.15);border-radius:var(--radius-sm);font-size:12px;color:var(--text-dim)">
+      💡 <strong>Dica:</strong> Configure a API automática em Configurações → WhatsApp para envio automático sem precisar clicar um por um.
+    </div>
+    <button class="btn btn-outline" onclick="closePopup()" style="margin-top:12px">Fechar</button>`);
+}
 
 // ══════════════════════════
 //  PERMISSÕES
@@ -761,11 +1114,7 @@ function isSidebarHidden() {
 function applySidebarVisibility() {
   const hidden = isSidebarHidden();
   document.body.classList.toggle('sidebar-hidden', hidden);
-  if (hidden) {
-    document.getElementById('mainEl').style.marginLeft = '0';
-  } else {
-    document.getElementById('mainEl').style.marginLeft = '';
-  }
+  // No inline styles — CSS classes handle everything
 }
 
 function toggleSidebarHidden() {
@@ -839,6 +1188,18 @@ function checkAndGrantAchievement(userId, achievementId, context) {
   setUserAchievements(userId, earned);
   addUserPoints(userId, ach.points);
   showAchievementPop(ach);
+
+  // WhatsApp notification for achievement
+  const cfg = DB.getWAConfig();
+  if (cfg.enabled) {
+    const users = DB.getUsers();
+    const user = users.find(u => getUserId(u) === userId);
+    if (user && user.whatsapp) {
+      sendWANotification(user, 'conquista', {
+        icon: ach.icon, title: ach.title, desc: ach.desc, points: ach.points
+      });
+    }
+  }
   return true;
 }
 
@@ -962,8 +1323,9 @@ function buildRanking() {
     const uid = getUserId(u);
     const pts = getUserPoints(uid);
     const prog = getTotalProgress(uid);
-    return { name: u.name, photo: u.photo, dept: u.dept, points: pts, lessonsCompleted: prog.done, pct: prog.pct };
-  }).sort((a, b) => b.points - a.points || b.lessonsCompleted - a.lessonsCompleted);
+    const sc = calcUserScore(uid);
+    return { name: u.name, email: u.email, photo: u.photo, dept: u.dept, points: pts, lessonsCompleted: prog.done, pct: prog.pct, score: sc.total };
+  }).sort((a, b) => b.score - a.score || b.points - a.points);
 }
 
 // ══════════════════════════
@@ -1329,7 +1691,9 @@ function toggleNavGroup(gk) {
 function toggleSidebarCollapse() {
   sidebarCollapsed = !sidebarCollapsed;
   DB.set('sidebarCollapsed', sidebarCollapsed);
+  // Only toggle class on sidebar — CSS sibling selector handles .main automatically
   document.getElementById('sidebar').classList.toggle('collapsed', sidebarCollapsed);
+  // Also keep .main.expanded in sync for browsers that don't support ~ well
   document.getElementById('mainEl').classList.toggle('expanded', sidebarCollapsed);
 }
 
@@ -1490,6 +1854,8 @@ function showModule(mod) {
   if (!target) return;
   hideAll(); showEl(mod); setNav('nav-'+mod); currentModule = mod;
   closeMobileSidebar();
+  // Reset FAQ search when navigating to other modules
+  if (mod !== 'faq') faqSearch = '';
   // Set breadcrumb
   const m = MODULES[mod];
   setBreadcrumb([
@@ -1549,80 +1915,305 @@ function renderModule(mod, el) {
 // ══════════════════════════
 //  COMUNICAÇÃO
 // ══════════════════════════
+// ══════════════════════════
+//  COMUNICAÇÃO — FEED VIVO
+// ══════════════════════════
+let feedFilter = 'todos';
+
+const COMM_TYPES = {
+  aviso:     { label:'🚨 Aviso Obrigatório', cls:'aviso',    prioColor:'red' },
+  update:    { label:'🔄 Atualização',       cls:'update',   prioColor:'blue' },
+  reconhec:  { label:'⭐ Reconhecimento',    cls:'reconhec', prioColor:'yellow' },
+  info:      { label:'💬 Informativo',       cls:'info',     prioColor:'grey' },
+};
+
 function renderComunicacao() {
   const comms = DB.getComms();
   const u = getSession();
+  const userId = getUserId(u);
   const read = DB.getReadComms(u.email || u.name);
-  const relevant = comms.filter(c => c.targetDept === 'Todos' || c.targetDept === u.dept);
+  let relevant = comms.filter(c => c.targetDept === 'Todos' || c.targetDept === u.dept);
   if (!relevant.length) return emptyState('📢', 'Nenhum comunicado publicado.', u.role === 'Admin' ? 'Criar Comunicado' : null, "showModule('admin')");
 
-  const prioColor = { urgent:'red', important:'blue', info:'grey' };
-  const prioLabel = { urgent:'🔴 Urgente', important:'🟡 Importante', info:'🟢 Info' };
+  // Filtro por tipo
+  const filters = [
+    { id:'todos', label:'📋 Todos' },
+    { id:'aviso', label:'🚨 Avisos' },
+    { id:'update', label:'🔄 Updates' },
+    { id:'reconhec', label:'⭐ Reconhecimentos' },
+    { id:'pendente', label:'⏳ Pendentes' },
+  ];
+  const filterBar = `<div class="feed-filter-bar">${filters.map(f =>
+    `<button class="feed-filter-btn${feedFilter===f.id?' active':''}" onclick="feedFilter='${f.id}';showModule('comunicacao')">${f.label}</button>`
+  ).join('')}</div>`;
 
-  return relevant.map(c => {
+  let filtered = relevant;
+  if (feedFilter === 'pendente') filtered = relevant.filter(c => !read.includes(c.id));
+  else if (feedFilter !== 'todos') filtered = relevant.filter(c => (c.commType||'info') === feedFilter);
+
+  if (!filtered.length) return filterBar + emptyState('📭', 'Nenhum comunicado nesta categoria.');
+
+  const cards = filtered.map(c => {
     const isRead = read.includes(c.id);
-    return `<div class="feed-card" style="${!isRead ? 'border-left:2px solid var(--secondary)' : ''}">
+    const interact = DB.getCommInteractions(c.id);
+    const liked = interact.likes.includes(userId);
+    const likeCount = interact.likes.length;
+    const comments = interact.comments || [];
+    const ctype = COMM_TYPES[c.commType||'info'] || COMM_TYPES.info;
+    const commentsHtml = comments.map(cm => `
+      <div class="feed-comment">
+        <div class="feed-comment-avatar" style="background:${getAvatarColor(cm.author)}">${(cm.author||'?')[0].toUpperCase()}</div>
+        <div class="feed-comment-body">
+          <div style="display:flex;align-items:baseline;gap:8px">
+            <span class="feed-comment-name">${cm.author}</span>
+            <span class="feed-comment-time">${cm.date}</span>
+          </div>
+          <div class="feed-comment-text">${cm.text}</div>
+        </div>
+      </div>`).join('');
+
+    return `<div class="feed-card" style="${!isRead?'border-left:3px solid var(--secondary)':''}">
+      <span class="feed-type-badge feed-type-${ctype.cls}">${ctype.label}</span>
       <div class="feed-header">
-        <div><div class="feed-author">${c.author||'Admin'} <span class="tag tag-${prioColor[c.priority]||'grey'}">${prioLabel[c.priority]||'Info'}</span></div>
-        <div class="feed-time">${c.date}${c.targetDept && c.targetDept !== 'Todos' ? ' · '+c.targetDept : ''}</div></div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;background:${getAvatarColor(c.author||'A')}">${(c.author||'A')[0].toUpperCase()}</div>
+          <div>
+            <div class="feed-author">${c.author||'Admin'}</div>
+            <div class="feed-time">${c.date}${c.targetDept && c.targetDept !== 'Todos' ? ' · '+c.targetDept : ''}</div>
+          </div>
+        </div>
+        ${!isRead ? '<div class="feed-notif-dot"></div>' : ''}
       </div>
-      <div class="feed-title">${c.title}</div>
+      <div class="feed-title" style="margin-top:10px">${c.title}</div>
       <div class="feed-body">${c.body}</div>
-      ${!isRead ? `<div class="confirm-strip"><span>📋 Confirme a leitura</span><button class="btn btn-primary btn-sm" onclick="markCommRead('${c.id}')">✅ Li e estou ciente</button></div>` : `<div class="confirm-strip done"><span>✅ Lido em ${c.date}</span></div>`}
+      <div class="feed-actions">
+        <button class="feed-action-btn${liked?' liked':''}" onclick="toggleLike('${c.id}')">
+          👍 Curtir${likeCount > 0 ? ' · <strong>'+likeCount+'</strong>' : ''}
+        </button>
+        <button class="feed-action-btn" onclick="toggleCommentBox('cbox-${c.id}')">
+          💬 Comentar${comments.length > 0 ? ' · <strong>'+comments.length+'</strong>' : ''}
+        </button>
+        ${!isRead
+          ? `<button class="feed-action-btn" onclick="markCommRead('${c.id}')">✅ Confirmar leitura</button>`
+          : `<span class="feed-action-btn read-done">✅ Lido</span>`}
+      </div>
+      <div id="cbox-${c.id}" style="display:none;margin-top:8px">
+        <div class="feed-comments">${commentsHtml}</div>
+        <div class="feed-comment-input-wrap">
+          <div style="width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;background:${getAvatarColor(u.name)};flex-shrink:0">${(u.name||'?')[0].toUpperCase()}</div>
+          <input id="cinput-${c.id}" placeholder="Escreva um comentário…" onkeydown="if(event.key==='Enter')submitComment('${c.id}')">
+          <button class="btn btn-primary btn-sm" onclick="submitComment('${c.id}')">Enviar</button>
+        </div>
+      </div>
     </div>`;
   }).join('');
+
+  return filterBar + cards;
+}
+
+function toggleLike(commId) {
+  const u = getSession();
+  const uid = getUserId(u);
+  const interact = DB.getCommInteractions(commId);
+  const idx = interact.likes.indexOf(uid);
+  if (idx >= 0) interact.likes.splice(idx, 1);
+  else { interact.likes.push(uid); addUserPoints(uid, 2); }
+  DB.setCommInteractions(commId, interact);
+  showModule('comunicacao');
+}
+
+function toggleCommentBox(id) {
+  const el = document.getElementById(id);
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function submitComment(commId) {
+  const u = getSession();
+  const input = document.getElementById('cinput-' + commId);
+  const text = input ? input.value.trim() : '';
+  if (!text) return;
+  const interact = DB.getCommInteractions(commId);
+  interact.comments.push({
+    author: u.name,
+    text,
+    date: new Date().toLocaleDateString('pt-BR'),
+    userId: getUserId(u),
+  });
+  DB.setCommInteractions(commId, interact);
+  addUserPoints(getUserId(u), 5);
+  showModule('comunicacao');
 }
 
 function markCommRead(id) {
   const u = getSession();
   const key = u.email || u.name;
   const read = DB.getReadComms(key);
-  if (!read.includes(id)) { read.push(id); DB.setReadComms(key, read); }
+  if (!read.includes(id)) {
+    read.push(id);
+    DB.setReadComms(key, read);
+    addUserPoints(getUserId(u), 3);
+  }
   updateNotifBadge();
   renderSidebar();
   showModule('comunicacao');
 }
 
 // ══════════════════════════
-//  RESULTADOS — TABBED (individual vs equipe)
+//  PERFORMANCE — SCORE PIPER
 // ══════════════════════════
-let resultadosTab = 'equipe';
+let resultadosTab = 'score';
+
+function calcUserScore(userId) {
+  const prog = getTotalProgress(userId);
+  const pts = getUserPoints(userId);
+  const ach = getUserAchievements(userId);
+  const comms = DB.getComms();
+  const read = DB.getReadComms(userId);
+  const readCount = comms.filter(c => read.includes(c.id)).length;
+
+  // Componentes do score (max 100)
+  const aulaScore    = Math.min(40, Math.round(prog.pct * 0.4));       // 40pts max — aulas
+  const engajScore   = Math.min(30, Math.round((pts / 10)));            // 30pts max — engajamento
+  const commScore    = Math.min(20, readCount * 4);                     // 20pts max — comunicados lidos
+  const achScore     = Math.min(10, ach.length * 2);                    // 10pts max — conquistas
+  const total = aulaScore + engajScore + commScore + achScore;
+
+  return { total: Math.min(100, total), aulaScore, engajScore, commScore, achScore, prog, pts, ach, readCount };
+}
 
 function renderResultados() {
-  const goals = DB.getGoals();
   const u = getSession();
-  const uid = getUserId(u);
-  const perms = DB.getUserPerms(uid);
+  const userId = getUserId(u);
+  const goals = DB.getGoals();
 
-  if (!goals.length) return emptyState('📈', 'Nenhuma meta configurada.', u.role==='Admin' ? 'Configurar Metas' : null, "showModule('admin')");
+  const tabs = [
+    { id:'score',      label:'🎯 Score Piper' },
+    { id:'metas',      label:'📊 Metas' },
+    { id:'ranking',    label:'🏆 Ranking' },
+  ];
 
-  // Metas de equipe/todos
-  const teamGoals = goals.filter(g => !g.dept || g.dept === 'Todos' || g.dept === u.dept);
-  // Metas individuais (dept = nome do usuário ou marcadas como individual)
-  const indivGoals = goals.filter(g => g.individual && (g.targetUser === u.name || g.targetUser === u.email));
-
-  const tabs = [];
-  if (teamGoals.length) tabs.push({ id:'equipe', label:'👥 Equipe/Geral' });
-  if (indivGoals.length) tabs.push({ id:'individual', label:'🎯 Individual' });
-  if (!tabs.length) return emptyState('📈', 'Nenhuma meta disponível para você.');
-
-  if (!tabs.find(t => t.id === resultadosTab)) resultadosTab = tabs[0].id;
-
-  const tabsHtml = tabs.length > 1 ? `<div class="module-tabs">${tabs.map(t =>
+  const tabsHtml = `<div class="module-tabs">${tabs.map(t =>
     `<button class="module-tab${resultadosTab===t.id?' active':''}" onclick="resultadosTab='${t.id}';showModule('resultados')">${t.label}</button>`
-  ).join('')}</div>` : '';
+  ).join('')}</div>`;
 
-  const activeGoals = resultadosTab === 'individual' ? indivGoals : teamGoals;
+  let content = '';
 
-  const grid = `<div class="stat-grid">${activeGoals.map(g => `
-    <div class="stat-card">
-      <div class="stat-value">${g.value}</div>
-      <div class="stat-label">${g.name}</div>
-      ${g.period ? `<div class="stat-sublabel">${g.period}</div>` : ''}
-      ${g.type ? `<div class="stat-sublabel" style="margin-top:4px"><span class="tag tag-grey">${g.type}</span></div>` : ''}
-    </div>`).join('')}</div>`;
+  if (resultadosTab === 'score') {
+    const sc = calcUserScore(userId);
+    const scoreColor = sc.total >= 80 ? 'var(--secondary)' : sc.total >= 50 ? 'var(--accent3)' : 'var(--accent)';
+    const scoreLabel = sc.total >= 80 ? '🔥 Excelente!' : sc.total >= 60 ? '⭐ Bom' : sc.total >= 40 ? '📈 Em progresso' : '🚀 Iniciando';
 
-  return tabsHtml + `<div class="module-panel active">${grid}</div>`;
+    content = `
+      <div class="score-card">
+        <div style="display:flex;align-items:flex-end;gap:8px">
+          <div class="score-value" style="color:${scoreColor}">${sc.total}</div>
+          <div>
+            <div class="score-max">/100</div>
+            <div style="font-size:14px;font-weight:700;color:${scoreColor};margin-top:-2px">${scoreLabel}</div>
+          </div>
+        </div>
+        <div class="score-label">Score Piper — ${u.name}</div>
+        <div class="score-bar-wrap">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-dim);margin-bottom:6px">
+            <span>Desempenho geral</span><span style="color:${scoreColor};font-weight:700">${sc.total}%</span>
+          </div>
+          <div class="score-bar-track"><div class="score-bar-fill" style="width:${sc.total}%;background:linear-gradient(90deg,${scoreColor},var(--accent2))"></div></div>
+        </div>
+        <div class="score-grid">
+          <div class="score-item">
+            <div class="score-item-icon">🎓</div>
+            <div class="score-item-value" style="color:var(--secondary)">${sc.aulaScore}</div>
+            <div class="score-item-label">Aulas (+40)</div>
+            <div style="font-size:10px;color:var(--text-dim);margin-top:2px">${sc.prog.done}/${sc.prog.total}</div>
+          </div>
+          <div class="score-item">
+            <div class="score-item-icon">💬</div>
+            <div class="score-item-value" style="color:var(--accent3)">${sc.engajScore}</div>
+            <div class="score-item-label">Engajamento (+30)</div>
+            <div style="font-size:10px;color:var(--text-dim);margin-top:2px">${sc.pts} pts</div>
+          </div>
+          <div class="score-item">
+            <div class="score-item-icon">📢</div>
+            <div class="score-item-value" style="color:var(--accent2)">${sc.commScore}</div>
+            <div class="score-item-label">Comunicados (+20)</div>
+            <div style="font-size:10px;color:var(--text-dim);margin-top:2px">${sc.readCount} lidos</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div class="stat-card">
+          <div class="stat-value" style="font-size:28px">${sc.ach.length}</div>
+          <div class="stat-label">🏅 Conquistas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="font-size:28px">${sc.prog.pct}%</div>
+          <div class="stat-label">🎓 Trilhas</div>
+        </div>
+      </div>`;
+
+  } else if (resultadosTab === 'metas') {
+    const teamGoals  = goals.filter(g => !g.individual && (!g.dept || g.dept === 'Todos' || g.dept === u.dept));
+    const indivGoals = goals.filter(g => g.individual && (g.targetUser === u.name || g.targetUser === u.email));
+    const allGoals   = [...teamGoals, ...indivGoals];
+
+    if (!allGoals.length) {
+      content = emptyState('📊', 'Nenhuma meta configurada.', u.role==='Admin' ? 'Configurar Metas' : null, "showModule('admin')");
+    } else {
+      const goalsHtml = `
+        ${teamGoals.length ? `<div style="font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">👥 Equipe / Geral</div>` : ''}
+        <div class="stat-grid">${teamGoals.map(g => `
+          <div class="stat-card">
+            <div class="stat-value">${g.value}</div>
+            <div class="stat-label">${g.name}</div>
+            ${g.period ? `<div class="stat-sublabel">${g.period}</div>` : ''}
+            ${g.type ? `<div class="stat-sublabel" style="margin-top:4px"><span class="tag tag-grey">${g.type}</span></div>` : ''}
+          </div>`).join('')}</div>
+        ${indivGoals.length ? `<div style="font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">🎯 Individuais</div>
+        <div class="stat-grid">${indivGoals.map(g => `
+          <div class="stat-card" style="border-color:rgba(9,242,137,.2)">
+            <div class="stat-value">${g.value}</div>
+            <div class="stat-label">${g.name}</div>
+            ${g.period ? `<div class="stat-sublabel">${g.period}</div>` : ''}
+          </div>`).join('')}</div>` : ''}`;
+      content = goalsHtml;
+    }
+
+  } else if (resultadosTab === 'ranking') {
+    const ranking = buildRanking();
+    if (!ranking.length) {
+      content = emptyState('🏆', 'Nenhum colaborador cadastrado ainda.');
+    } else {
+      const posClasses = ['gold','silver','bronze'];
+      const medals = ['🥇','🥈','🥉'];
+      content = `
+        <div style="margin-bottom:12px;font-size:13px;color:var(--text-dim)">Ranking por Score Piper — baseado em aulas, engajamento e comunicados.</div>
+        ${ranking.map((r, i) => {
+          const sc = calcUserScore(r.email || r.name);
+          const cls = posClasses[i] || 'other';
+          const bg = getAvatarColor(r.name);
+          const barColor = i === 0 ? 'var(--accent3)' : i === 1 ? '#A0AEC0' : i === 2 ? '#C97429' : 'var(--secondary)';
+          return `<div class="ranking-card">
+            <div class="ranking-pos ${cls}">${i < 3 ? medals[i] : i+1}</div>
+            <div style="width:36px;height:36px;border-radius:9px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;background:${r.photo?'transparent':bg};flex-shrink:0">
+              ${r.photo ? `<img src="${r.photo}" style="width:36px;height:36px;object-fit:cover;">` : r.name[0].toUpperCase()}
+            </div>
+            <div class="ranking-info" style="flex:1">
+              <div class="ranking-name">${r.name}</div>
+              <div class="ranking-meta">${r.dept||'Geral'} · ${sc.prog.done} aulas · ${sc.readCount} comunicados lidos</div>
+              <div style="margin-top:5px;height:4px;background:var(--border);border-radius:2px;overflow:hidden">
+                <div style="width:${sc.total}%;height:100%;background:${barColor};border-radius:2px;transition:width .8s var(--ease)"></div>
+              </div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div class="ranking-score" style="font-size:22px">${sc.total}</div>
+              <div style="font-size:10px;color:var(--text-dim)">Score</div>
+            </div>
+          </div>`;
+        }).join('')}`;
+    }
+  }
+
+  return tabsHtml + `<div class="module-panel active">${content}</div>`;
 }
 
 // ══════════════════════════
@@ -2004,9 +2595,25 @@ function markLessonDone(ti, li, ii) {
   const lessons = (tracks[ti]?.levels[li]?.lessons) || [];
   const allDone = lessons.every((_, idx) => progress[trackKey][`${trackKey}_lv${li}_${idx}`]);
   if (allDone && lessons.length > 0) {
-    // Check if it's a level complete achievement
     checkAndGrantAchievement(userId, 'level_1');
     showToast('🏅 Nível concluído! Próximo desbloqueado.');
+
+    // WhatsApp notification for level completion
+    const cfg = DB.getWAConfig();
+    if (cfg.enabled) {
+      const allTracks = DB.getTracks();
+      const track = allTracks[ti];
+      const level = track?.levels[li];
+      const users = DB.getUsers();
+      const user = users.find(u => getUserId(u) === userId);
+      if (user?.whatsapp) {
+        sendWANotification(user, 'nivel_completo', {
+          trackName: track?.name || 'Trilha',
+          levelName: level?.level || 'Nível',
+          badge: level?.badge || '',
+        });
+      }
+    }
   } else {
     showToast('✅ Aula concluída! +10 pontos');
     addUserPoints(userId, 10);
@@ -2024,34 +2631,110 @@ function markLessonDone(ti, li, ii) {
 }
 
 // ══════════════════════════
-//  FAQ — TABBED
+//  FAQ INTELIGENTE
 // ══════════════════════════
 let faqActiveTab = null;
+let faqSearch = '';
 
 function renderFaq() {
-  const cats = DB.getFaqCats().filter(c => c.items && c.items.length > 0);
+  const allCats = DB.getFaqCats();
+  const cats = allCats.filter(c => c.items && c.items.length > 0);
   if (!cats.length) return emptyState('💡', 'Nenhuma pergunta cadastrada.', 'Ir para Configurações', "showModule('admin')");
 
+  const views = DB.getFaqViews();
+  const helpful = DB.getFaqHelpful();
+
+  // Search bar
+  const searchBar = `<div class="faq-search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Buscar em toda a base de conhecimento…" value="${faqSearch}"
+      oninput="faqSearch=this.value;showModule('faq')" id="faqSearchInput">
+  </div>`;
+
+  // If searching
+  if (faqSearch.length >= 2) {
+    const lq = faqSearch.toLowerCase();
+    const results = [];
+    cats.forEach(c => {
+      c.items.forEach((f, fi) => {
+        if ((f.q + ' ' + f.a + ' ' + (f.example||'')).toLowerCase().includes(lq)) {
+          results.push({ ...f, catName: c.name, faqKey: c.name + '_' + fi });
+        }
+      });
+    });
+
+    const resultsHtml = results.length
+      ? results.map(f => buildFaqItem(f, views, helpful)).join('')
+      : emptyState('🔍', `Nenhum resultado para "${faqSearch}".`);
+
+    return searchBar + `<div style="font-size:13px;color:var(--text-dim);margin-bottom:10px"><strong>${results.length}</strong> resultado(s) para "<strong>${faqSearch}</strong>"</div>` + resultsHtml;
+  }
+
+  // Most viewed (top 3)
+  let allItems = [];
+  cats.forEach(c => c.items.forEach((f, fi) => allItems.push({ ...f, catName: c.name, faqKey: c.name + '_' + fi })));
+  const topViewed = allItems
+    .filter(f => (views[f.faqKey] || 0) > 0)
+    .sort((a, b) => (views[b.faqKey]||0) - (views[a.faqKey]||0))
+    .slice(0, 3);
+
+  const popularHtml = topViewed.length ? `
+    <div style="margin-bottom:16px">
+      <div class="faq-cat-title" style="margin-bottom:8px">🔥 Mais acessados</div>
+      ${topViewed.map(f => buildFaqItem(f, views, helpful, true)).join('')}
+    </div>` : '';
+
+  // Category tabs
   if (!faqActiveTab || !cats.find(c => c.name === faqActiveTab)) faqActiveTab = cats[0].name;
 
-  const tabsHtml = `<div class="module-tabs">${cats.map(c =>
-    `<button class="module-tab${faqActiveTab===c.name?' active':''}" onclick="faqActiveTab='${c.name.replace(/'/g,"\\'")}';showModule('faq')">${c.emoji||''} ${c.name} <span class="tag tag-grey" style="margin-left:4px">${c.items.length}</span></button>`
-  ).join('')}</div>`;
+  const tabsHtml = `<div class="module-tabs">${cats.map(c => {
+    const hasNew = c.items.some((f, fi) => !(views[c.name+'_'+fi]));
+    return `<button class="module-tab${faqActiveTab===c.name?' active':''}" onclick="faqActiveTab='${c.name.replace(/'/g,"\\'")}';showModule('faq')">${c.emoji||''} ${c.name}${hasNew ? ' <span class="faq-popular-badge">NOVO</span>' : ''}</button>`;
+  }).join('')}</div>`;
 
   const activecat = cats.find(c => c.name === faqActiveTab) || cats[0];
-  const itemsHtml = activecat.items.map(f => `
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>${f.q}</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-      <div class="faq-a">
-        <p>${f.a}</p>
-        ${f.example ? `<div class="step-box" style="margin-top:8px"><strong>💡 Exemplo prático</strong><p>${f.example}</p></div>` : ''}
-      </div>
-    </div>`).join('');
+  const itemsHtml = activecat.items.map((f, fi) => {
+    const faqKey = activecat.name + '_' + fi;
+    return buildFaqItem({ ...f, catName: activecat.name, faqKey }, views, helpful);
+  }).join('');
 
-  return tabsHtml + `<div class="module-panel active">${itemsHtml}</div>`;
+  return searchBar + popularHtml + tabsHtml + `<div class="module-panel active">${itemsHtml}</div>`;
+}
+
+function buildFaqItem(f, views, helpful, isPopular = false) {
+  const viewCount = views[f.faqKey] || 0;
+  const h = helpful[f.faqKey] || { yes:0, no:0 };
+  return `<div class="faq-item">
+    <div class="faq-q" onclick="trackFaqView('${f.faqKey}');toggleFaq(this)">
+      <span>${f.q}${isPopular ? ` <span class="faq-popular-badge">🔥 ${viewCount} acessos</span>` : ''}</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="faq-a">
+      <p>${f.a}</p>
+      ${f.example ? `<div class="step-box" style="margin-top:10px"><strong>💡 Exemplo prático</strong><p>${f.example}</p></div>` : ''}
+      <div class="faq-helpful">
+        <span>Isso ajudou?</span>
+        <button class="faq-helpful-btn yes" onclick="markFaqHelpful('${f.faqKey}','yes')">👍 Sim${h.yes > 0 ? ' ('+h.yes+')' : ''}</button>
+        <button class="faq-helpful-btn no"  onclick="markFaqHelpful('${f.faqKey}','no')">👎 Não${h.no > 0 ? ' ('+h.no+')' : ''}</button>
+        ${viewCount > 0 ? `<span style="margin-left:auto;font-size:11px;color:var(--text-dim)">${viewCount} visualizaç${viewCount === 1 ? 'ão' : 'ões'}</span>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function trackFaqView(faqKey) {
+  const views = DB.getFaqViews();
+  views[faqKey] = (views[faqKey] || 0) + 1;
+  DB.setFaqViews(views);
+}
+
+function markFaqHelpful(faqKey, vote) {
+  const h = DB.getFaqHelpful();
+  if (!h[faqKey]) h[faqKey] = { yes:0, no:0 };
+  h[faqKey][vote]++;
+  DB.setFaqHelpful(h);
+  if (vote === 'yes') addUserPoints(getUserId(getSession()), 1);
+  showModule('faq');
 }
 
 // ══════════════════════════
@@ -2265,6 +2948,7 @@ function renderAdmin() {
     { id:'playbooks',   label:'📋 Playbooks' },
     { id:'mural',       label:'⭐ Mural' },
     { id:'conteudo',    label:'📄 Conteúdo' },
+    { id:'whatsapp',    label:'📲 WhatsApp' },
     { id:'senha',       label:'🔐 Senha' },
   ];
 
@@ -2349,10 +3033,13 @@ function renderAdmin() {
     <div class="admin-section"><h3>📢 Enviar Comunicado</h3>
       <div class="form-row">
         <div class="form-group"><label>Título</label><input class="form-input" id="commTitle" placeholder="Título do comunicado"></div>
-        <div class="form-group"><label>Prioridade</label><select class="form-select" id="commPriority"><option value="info">🟢 Informativo</option><option value="important">🟡 Importante</option><option value="urgent">🔴 Urgente</option></select></div>
+        <div class="form-group"><label>Tipo</label><select class="form-select" id="commType"><option value="info">💬 Informativo</option><option value="update">🔄 Atualização</option><option value="aviso">🚨 Aviso Obrigatório</option><option value="reconhec">⭐ Reconhecimento</option></select></div>
       </div>
-      <div class="form-group"><label>Para</label><select class="form-select" id="commDept"><option value="Todos">Todos</option>${org.depts.map(d => `<option>${d}</option>`).join('')}</select></div>
-      <div class="form-group" style="margin-top:6px"><label>Mensagem</label><textarea class="form-textarea" id="commBody" placeholder="Conteúdo do comunicado..."></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Prioridade</label><select class="form-select" id="commPriority"><option value="info">🟢 Normal</option><option value="important">🟡 Importante</option><option value="urgent">🔴 Urgente</option></select></div>
+        <div class="form-group"><label>Para</label><select class="form-select" id="commDept"><option value="Todos">Todos</option>${org.depts.map(d => `<option>${d}</option>`).join('')}</select></div>
+      </div>
+      <div class="form-group"><label>Mensagem</label><textarea class="form-textarea" id="commBody" placeholder="Conteúdo do comunicado..."></textarea></div>
       <button class="btn btn-primary" style="margin-top:8px" onclick="sendComm()">📤 Enviar</button>
     </div>
     <div class="admin-section"><h3>📋 Comunicados enviados (${comms.length})</h3>
@@ -2454,7 +3141,161 @@ function renderAdmin() {
     </div>
   </div>`;
 
-  return tabsHtml + panelBackup + panelIdentidade + panelOrg + panelUsuarios + panelComms + panelMetas + panelUni + panelFaq + panelPlaybooks + panelMural + panelConteudo + panelSenha;
+  // ── WHATSAPP
+  const waCfg = DB.getWAConfig();
+  const waLog = DB.getWALog();
+  const usersWithWA = users.filter(u => u.whatsapp);
+  const usersWithoutWA = users.filter(u => !u.whatsapp);
+  const previewMsg = buildWAMessage('comunicado', {
+    userName: 'Colaborador',
+    title: 'Novo comunicado importante',
+    body: 'Confira as novidades do portal e confirme sua leitura.',
+  });
+
+  const panelWhatsApp = `<div class="admin-tab-panel${adminActiveTab==='whatsapp'?' active':''}" id="atab-whatsapp">
+
+    <div class="admin-section" style="border-color:rgba(37,211,102,.25)">
+      <h3>📲 Configurações do WhatsApp</h3>
+
+      <!-- Status geral -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:12px 14px;background:${waCfg.enabled?'rgba(37,211,102,.06)':'var(--grey-faint)'};border:1px solid ${waCfg.enabled?'rgba(37,211,102,.2)':'var(--border)'};border-radius:var(--radius-sm)">
+        <div class="wa-status-dot ${waCfg.enabled?'ok':'off'}"></div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700">${waCfg.enabled ? '✅ Notificações WhatsApp ativas' : '⏸️ Notificações desativadas'}</div>
+          <div style="font-size:11px;color:var(--text-dim)">${usersWithWA.length} de ${users.length} colaboradores com WhatsApp cadastrado</div>
+        </div>
+        <button class="btn ${waCfg.enabled?'btn-danger':'btn-primary'}" onclick="toggleWAEnabled()">${waCfg.enabled?'Desativar':'Ativar'}</button>
+      </div>
+
+      <!-- Modo de envio -->
+      <div class="form-group" style="margin-bottom:12px">
+        <label>Modo de Envio</label>
+        <select class="form-select" id="wa_mode" onchange="updateWAMode()">
+          <option value="link" ${waCfg.mode==='link'?'selected':''}>🔗 Link Manual — abre WhatsApp Web (gratuito, sem API)</option>
+          <option value="api" ${waCfg.mode==='api'?'selected':''}>⚡ API Automática — envia sem clique (requer chave)</option>
+        </select>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:4px">
+          ${waCfg.mode==='link'
+            ? '👆 Modo manual: ao enviar comunicado, aparece botão de envio para cada colaborador.'
+            : '⚡ Modo automático: mensagens enviadas instantaneamente via API ao publicar.'}
+        </div>
+      </div>
+
+      <!-- API Key (só aparece no modo api) -->
+      <div id="wa_api_section" style="display:${waCfg.mode==='api'?'block':'none'}">
+        <div class="form-group" style="margin-bottom:8px">
+          <label>Chave de API (CallMeBot / Twilio / Wati)</label>
+          <input class="form-input" id="wa_apikey" value="${waCfg.apiKey||''}" placeholder="Sua chave de API aqui" type="password">
+        </div>
+        <div class="form-group" style="margin-bottom:12px">
+          <label>Número de Origem (apenas Twilio/Wati)</label>
+          <input class="form-input" id="wa_from" value="${waCfg.fromNumber||''}" placeholder="Ex: +15551234567">
+        </div>
+        <div style="padding:10px 12px;background:rgba(255,184,0,.06);border:1px solid rgba(255,184,0,.18);border-radius:var(--radius-sm);font-size:12px;margin-bottom:12px">
+          💡 <strong>CallMeBot</strong> (gratuito para testes): acesse <a href="https://www.callmebot.com" target="_blank" style="color:var(--secondary)">callmebot.com</a> e siga as instruções para obter sua API key.<br>
+          Para uso profissional, recomendamos <strong>Twilio</strong> ou <strong>Wati</strong>.
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="saveWAConfig()">💾 Salvar Configurações</button>
+    </div>
+
+    <!-- Cobertura de números -->
+    <div class="admin-section">
+      <h3>📋 Cobertura de Colaboradores</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div class="stat-card" style="border-color:rgba(37,211,102,.2)">
+          <div class="stat-value" style="color:#25D366">${usersWithWA.length}</div>
+          <div class="stat-label">Com WhatsApp ✅</div>
+        </div>
+        <div class="stat-card" style="border-color:rgba(239,68,68,.15)">
+          <div class="stat-value" style="color:var(--red)">${usersWithoutWA.length}</div>
+          <div class="stat-label">Sem WhatsApp ⚠️</div>
+        </div>
+      </div>
+      ${usersWithoutWA.length > 0 ? `
+        <div style="padding:10px 12px;background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.12);border-radius:var(--radius-sm);font-size:12px;margin-bottom:10px">
+          ⚠️ <strong>Sem número cadastrado:</strong> ${usersWithoutWA.map(u => u.name).join(', ')}.<br>
+          Adicione em <strong>Usuários → Editar → campo WhatsApp</strong>.
+        </div>` : ''}
+      ${usersWithWA.length > 0 ? `
+        <div class="admin-list">${usersWithWA.map(u => `
+          <div class="admin-list-item">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="width:24px;height:24px;border-radius:6px;background:${getAvatarColor(u.name)};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff">${u.name[0]}</div>
+              <span><strong>${u.name}</strong></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:12px;color:var(--text-dim)">${u.whatsapp}</span>
+              <a href="${buildWALink(u.whatsapp, buildWAMessage('boas_vindas',{userName:u.name.split(' ')[0]}))}" target="_blank" class="btn btn-outline btn-sm">📲 Testar</a>
+            </div>
+          </div>`).join('')}
+        </div>` : ''}
+    </div>
+
+    <!-- Envio manual por gatilho -->
+    <div class="admin-section">
+      <h3>📤 Envio Manual por Gatilho</h3>
+      <p style="font-size:12px;color:var(--text-dim);margin-bottom:12px">Envie mensagens WhatsApp para seus colaboradores em qualquer momento.</p>
+      <div class="form-row" style="margin-bottom:10px">
+        <div class="form-group">
+          <label>Tipo de Mensagem</label>
+          <select class="form-select" id="wa_manual_type">
+            <option value="comunicado">📢 Comunicado</option>
+            <option value="pendencia">⏳ Lembrete de pendência</option>
+            <option value="boas_vindas">👋 Boas-vindas</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Para</label>
+          <select class="form-select" id="wa_manual_dept">
+            <option value="Todos">Todos os colaboradores</option>
+            ${org.depts.map(d => `<option>${d}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:10px">
+        <label>Mensagem personalizada (opcional)</label>
+        <textarea class="form-textarea" id="wa_manual_msg" placeholder="Deixe em branco para usar o template padrão do tipo selecionado…" style="min-height:60px"></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="triggerWAManual()" style="background:#25D366">📲 Enviar via WhatsApp</button>
+    </div>
+
+    <!-- Preview da mensagem -->
+    <div class="admin-section">
+      <h3>👁️ Preview da Mensagem</h3>
+      <div class="wa-preview">
+        <div class="wa-preview-header">
+          <div class="wa-preview-avatar">🛡️</div>
+          <div><div class="wa-preview-name">${id.name}</div><div class="wa-preview-status">Portal Corporativo</div></div>
+        </div>
+        <div class="wa-bubble">
+          ${(previewMsg||'').replace(/\n/g,'<br>').replace(/\*(.*?)\*/g,'<strong>$1</strong>')}
+          <div class="wa-bubble-time">${new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})} ✓✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Log de envios -->
+    <div class="admin-section">
+      <h3>📋 Histórico de Envios (${waLog.length})</h3>
+      ${waLog.length ? `<div class="admin-list">${waLog.slice(0,15).map(l => `
+        <div class="admin-list-item">
+          <div>
+            <div style="font-size:12px;font-weight:700">${l.to}</div>
+            <div style="font-size:11px;color:var(--text-dim)">${l.type} · ${l.ts}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="tag ${l.status==='sent'?'tag-green':l.status==='link_ready'?'tag-blue':'tag-red'}">${l.status==='sent'?'✓ Enviado':l.status==='link_ready'?'🔗 Link':l.status}</span>
+            ${l.link ? `<a href="${l.link}" target="_blank" class="btn btn-outline btn-sm">📲</a>` : ''}
+          </div>
+        </div>`).join('')}</div>` : '<p style="font-size:12px;color:var(--text-dim);padding:4px">Nenhum envio registrado ainda.</p>'}
+      ${waLog.length > 0 ? `<button class="btn btn-danger btn-sm" style="margin-top:8px" onclick="clearWALog()">🗑️ Limpar histórico</button>` : ''}
+    </div>
+
+  </div>`;
+
+  return tabsHtml + panelBackup + panelIdentidade + panelOrg + panelUsuarios + panelComms + panelMetas + panelUni + panelFaq + panelPlaybooks + panelMural + panelConteudo + panelWhatsApp + panelSenha;
 }
 
 function switchAdminTab(tab) {
@@ -2462,6 +3303,73 @@ function switchAdminTab(tab) {
   // Re-render apenas o painel admin sem loader
   const el = document.getElementById('admin');
   if (el) renderModule('admin', el);
+}
+
+// ══════════════════════════
+//  WHATSAPP — FUNÇÕES ADMIN
+// ══════════════════════════
+function toggleWAEnabled() {
+  const cfg = DB.getWAConfig();
+  cfg.enabled = !cfg.enabled;
+  DB.setWAConfig(cfg);
+  switchAdminTab('whatsapp');
+  showToast(cfg.enabled ? '📲 WhatsApp ativado!' : 'WhatsApp desativado.');
+}
+
+function updateWAMode() {
+  const mode = document.getElementById('wa_mode')?.value;
+  const apiSection = document.getElementById('wa_api_section');
+  if (apiSection) apiSection.style.display = mode === 'api' ? 'block' : 'none';
+}
+
+function saveWAConfig() {
+  const cfg = DB.getWAConfig();
+  cfg.mode       = document.getElementById('wa_mode')?.value || 'link';
+  cfg.apiKey     = document.getElementById('wa_apikey')?.value.trim() || '';
+  cfg.fromNumber = document.getElementById('wa_from')?.value.trim() || '';
+  DB.setWAConfig(cfg);
+  switchAdminTab('whatsapp');
+  showToast('✅ Configurações WhatsApp salvas!');
+}
+
+function triggerWAManual() {
+  const type     = document.getElementById('wa_manual_type')?.value || 'comunicado';
+  const dept     = document.getElementById('wa_manual_dept')?.value || 'Todos';
+  const customMsg = document.getElementById('wa_manual_msg')?.value.trim() || '';
+  const cfg = DB.getWAConfig();
+
+  const waUsers = DB.getUsers().filter(u => {
+    if (!u.whatsapp) return false;
+    return dept === 'Todos' || u.dept === dept;
+  });
+
+  if (!waUsers.length) {
+    showToast('⚠️ Nenhum colaborador com WhatsApp no grupo selecionado.');
+    return;
+  }
+
+  const pendingCount = DB.getComms().length;
+  const data = {
+    title: customMsg || 'Confira as novidades do portal',
+    body:  customMsg || '',
+    count: pendingCount,
+  };
+
+  if (cfg.mode === 'link') {
+    showWALinksPanel(type, data, dept);
+  } else {
+    sendWABroadcast(type, data, dept).then(count => {
+      showToast(`📲 Enviado para ${count} colaborador(es)!`);
+      switchAdminTab('whatsapp');
+    });
+  }
+}
+
+function clearWALog() {
+  if (!confirm('Limpar todo o histórico de envios?')) return;
+  DB.set('walog', []);
+  switchAdminTab('whatsapp');
+  showToast('Histórico limpo.');
 }
 
 // ══════════════════════════
@@ -2783,18 +3691,34 @@ function sendComm() {
   const body = document.getElementById('commBody').value.trim();
   if (!title || !body) return showToast('Preencha título e mensagem.');
   const u = getSession();
+  const targetDept = document.getElementById('commDept').value;
+  const commType = document.getElementById('commType')?.value || 'info';
   const comms = DB.getComms();
   comms.unshift({
     id: 'comm_' + Date.now(),
     title, body,
-    priority: document.getElementById('commPriority').value,
-    targetDept: document.getElementById('commDept').value,
+    commType,
+    priority:   document.getElementById('commPriority').value,
+    targetDept,
     author: u.name || 'Admin',
     date: new Date().toLocaleDateString('pt-BR')
   });
   DB.setComms(comms);
   updateNotifBadge(); renderSidebar(); switchAdminTab('comunicados');
   showToast('Comunicado enviado! 📢');
+
+  // WhatsApp notification
+  const cfg = DB.getWAConfig();
+  if (cfg.enabled) {
+    const waData = { title, body };
+    if (cfg.mode === 'link') {
+      showWALinksPanel('comunicado', waData, targetDept);
+    } else {
+      sendWABroadcast('comunicado', waData, targetDept).then(count => {
+        if (count > 0) showToast(`📲 WhatsApp enviado para ${count} colaborador(es)!`);
+      });
+    }
+  }
 }
 function removeComm(id) {
   const comms = DB.getComms().filter(c => c.id !== id);
